@@ -3,6 +3,9 @@ from genomicranges import GenomicRanges
 from typing import Any
 import numpy
 
+from .load_sequence_information import load_sequence_information
+
+
 
 def load_genomic_ranges(meta: dict[str, Any], project, **kwargs) -> GenomicRanges:
     """
@@ -31,26 +34,27 @@ def load_genomic_ranges(meta: dict[str, Any], project, **kwargs) -> GenomicRange
     if "compression" in grmeta:
         compmethod = grmeta["compression"]
 
-    names, fields = dl.read_csv(p, grmeta["length"], compression=compression)
+    names, fields = dl.read_csv(p, grmeta["length"], compression=compmethod)
     contents = dict(zip(names, fields))
     gr = GenomicRanges(
-        BiocFrame({
+        {
             "seqnames": contents["seqnames"],
-            "start": list(contents["start"]),
-            "end": [e + 1 for e in contents["end"]],
+            "starts": list(contents["start"]),
+            "ends": [e + 1 for e in contents["end"]],
             "strand": contents["strand"]
-        })
+        }
     )
 
     smeta = dl.acquire_metadata(project, grmeta["sequence_information"]["resource"]["path"])
     gr.seq_info = load_sequence_information(smeta, project)
 
     if "other_data" in grmeta:
+        print(project)
         ometa = dl.acquire_metadata(project, grmeta["other_data"]["resource"]["path"])
-        gr.metadata = load_object(ometa, project)
+        gr.metadata = dl.load_object(ometa, project)
     
     if "range_data" in grmeta:
         rmeta = dl.acquire_metadata(project, grmeta["range_data"]["resource"]["path"])
-        gr.metadata = load_object(rmeta, project)
+        gr.mcols = dl.load_object(rmeta, project)
 
     return gr

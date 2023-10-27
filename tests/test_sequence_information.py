@@ -22,3 +22,22 @@ def test_sequence_information():
     assert roundtrip.get_seqlengths() == si.get_seqlengths()
     assert roundtrip.get_is_circular() == si.get_is_circular()
     assert roundtrip.get_genome() == si.get_genome()
+
+
+def test_sequence_information_all_none():
+    si = SeqInfo(
+        ["chrA", "chrB", "chrC"],
+        [None] * 3,
+        [None] * 3,
+        [None] * 3
+    )
+
+    dir = mkdtemp()
+    meta = stage_object(si, dir, "foo")
+    write_metadata(meta, dir)
+
+    roundtrip = dolomite_ranges.load_sequence_information(meta, dir)
+    assert roundtrip.get_seqnames() == si.get_seqnames()
+    assert roundtrip.get_seqlengths() == si.get_seqlengths()
+    assert roundtrip.get_is_circular() == si.get_is_circular()
+    assert roundtrip.get_genome() == si.get_genome()

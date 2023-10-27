@@ -47,4 +47,11 @@ def load_sequence_information(meta: dict[str, Any], project, **kwargs) -> SeqInf
         else:
             is_circular.append(bool(x))
 
-    return SeqInfo(contents["seqnames"], seqlengths, is_circular, contents["genome"])
+    genome = []
+    for x in contents["genome"]:
+        if numpy.ma.is_masked(x) or x is None:
+            genome.append(None)
+        else:
+            genome.append(str(x))
+
+    return SeqInfo(contents["seqnames"], seqlengths, is_circular, genome)
