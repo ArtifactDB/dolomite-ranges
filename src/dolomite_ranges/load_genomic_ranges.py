@@ -3,7 +3,7 @@ from genomicranges import GenomicRanges
 from typing import Any
 import numpy
 
-from .load_sequence_information import load_sequence_information
+from .read_sequence_information import load_sequence_information
 
 
 
