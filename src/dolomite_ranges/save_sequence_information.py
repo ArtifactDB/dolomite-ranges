@@ -3,7 +3,7 @@ from typing import Any
 
 import dolomite_base as dl
 from biocframe import BiocFrame
-from dolomite_base.save_object import save_object, validate_saves
+from dolomite_base import save_object, validate_saves
 from genomicranges import SeqInfo
 
 
@@ -20,7 +20,7 @@ def save_sequence_information(
 
         path: 
             Path to a directory in which to save ``x``.
-            
+
         is_child (bool, optional): _description_. Defaults to False.
 
     Returns:
