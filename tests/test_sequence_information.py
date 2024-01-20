@@ -2,6 +2,7 @@ import os
 from tempfile import mkdtemp
 
 import dolomite_base as dl
+import dolomite_ranges
 from genomicranges import SeqInfo
 
 
