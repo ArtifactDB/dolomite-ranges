@@ -16,6 +16,6 @@ finally:
     del version, PackageNotFoundError
 
 from .save_sequence_information import save_sequence_information
-# from .load_sequence_information import load_sequence_information 
+from .read_sequence_information import read_sequence_information 
 # from .stage_genomic_ranges import stage_genomic_ranges
 # from .load_genomic_ranges import load_genomic_ranges 

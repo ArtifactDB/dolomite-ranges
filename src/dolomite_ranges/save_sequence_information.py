@@ -35,6 +35,7 @@ def save_sequence_information(x: SeqInfo, path: str, **kwargs):
         ghandle = handle.create_group("sequence_information")
 
         dl._utils_vector.write_string_list_to_hdf5(ghandle, "name", x.get_seqnames())
+
         dl._utils_vector.write_integer_list_to_hdf5(
             ghandle, "length", x.get_seqlengths()
         )
