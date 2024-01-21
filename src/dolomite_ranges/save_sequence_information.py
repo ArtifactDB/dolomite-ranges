@@ -5,6 +5,8 @@ import h5py
 from dolomite_base import save_object, validate_saves
 from genomicranges import SeqInfo
 
+from ._utils_seqinfo import write_seqlengths_to_hdf5
+
 
 @save_object.register
 @validate_saves
@@ -36,9 +38,8 @@ def save_sequence_information(x: SeqInfo, path: str, **kwargs):
 
         dl._utils_vector.write_string_list_to_hdf5(ghandle, "name", x.get_seqnames())
 
-        dl._utils_vector.write_integer_list_to_hdf5(
-            ghandle, "length", x.get_seqlengths()
-        )
+        write_seqlengths_to_hdf5(ghandle, "length", x.get_seqlengths())
+
         dl._utils_vector.write_boolean_list_to_hdf5(
             ghandle, "circular", x.get_is_circular()
         )

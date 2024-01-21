@@ -5,6 +5,8 @@ import h5py
 from dolomite_base.read_object import registry
 from genomicranges import SeqInfo
 
+from ._utils_seqinfo import read_seqlengths_from_hdf5
+
 registry["sequence_information"] = "dolomite_ranges.read_sequence_information"
 
 
@@ -36,16 +38,15 @@ def read_sequence_information(path: str, metadata: dict, **kwargs) -> SeqInfo:
             ghandle["name"], "string", True
         )
 
-        seqlengths = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["length"], "number", True
-        )
+        seqlengths = read_seqlengths_from_hdf5(ghandle["length"])
 
         is_circular = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["circular"], "bolean", True
+            ghandle["circular"], "boolean", True
         )
+        is_circular = is_circular.tolist()
 
         genome = dl._utils_vector.load_vector_from_hdf5(
             ghandle["genome"], "string", True
         )
 
-    return SeqInfo(seqnames, seqlengths.tolist(), is_circular, genome)
+    return SeqInfo(seqnames, seqlengths, is_circular, genome)
