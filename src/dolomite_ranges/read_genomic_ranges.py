@@ -2,7 +2,6 @@ import os
 
 import dolomite_base as dl
 import h5py
-import numpy as np
 from dolomite_base.read_object import registry
 from genomicranges import GenomicRanges
 from iranges import IRanges
@@ -39,28 +38,26 @@ def read_genomic_ranges(path: str, metadata: dict, **kwargs) -> GenomicRanges:
     with h5py.File(os.path.join(path, "ranges.h5"), "r") as handle:
         ghandle = handle["genomic_ranges"]
 
-        seqnames = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["sequence"], "number", True
+        seqnames = dl.load_vector_from_hdf5(
+            ghandle["sequence"], expected_type=int, report_1darray=True
         )
 
-        starts = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["start"], "number", True
+        starts = dl.load_vector_from_hdf5(
+            ghandle["start"], expected_type=int, report_1darray=True
         )
 
-        widths = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["width"], "number", True
+        widths = dl.load_vector_from_hdf5(
+            ghandle["width"], expected_type=int, report_1darray=True
         )
 
-        strand = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["strand"], "number", True
+        strand = dl.load_vector_from_hdf5(
+            ghandle["strand"], expected_type=int, report_1darray=True
         )
-
-    print(seqinfo, seqnames, starts, widths, strand)
 
     gr = GenomicRanges(
-        seqnames=seqnames.astype(np.int64),
-        ranges=IRanges(starts.astype(np.int64), widths.astype(np.int64)),
-        strand=strand.astype(np.int8),
+        seqnames=seqnames,
+        ranges=IRanges(starts, widths),
+        strand=strand,
         seqinfo=seqinfo,
     )
 

@@ -4,6 +4,7 @@ from tempfile import mkdtemp
 from dolomite_base import read_object, save_object
 from genomicranges import GenomicRanges, SeqInfo
 from iranges import IRanges
+import dolomite_ranges
 
 
 def test_genomic_ranges():

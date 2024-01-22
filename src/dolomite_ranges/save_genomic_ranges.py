@@ -2,12 +2,11 @@ import os
 
 import dolomite_base as dl
 import h5py
-from dolomite_base import save_object, validate_saves
 from genomicranges import GenomicRanges
 
 
-@save_object.register
-@validate_saves
+@dl.save_object.register
+@dl.validate_saves
 def save_genomic_ranges(x: GenomicRanges, path: str, **kwargs):
     """Method for saving :py:class:`~genomicranges.GenomicRanges.GenomicRanges`
     objects to their corresponding file representations, see
@@ -41,41 +40,24 @@ def save_genomic_ranges(x: GenomicRanges, path: str, **kwargs):
         ghandle = handle.create_group("genomic_ranges")
 
         _seqnames, _ = x.get_seqnames(as_type="factor")
-        ghandle.create_dataset(
-            "sequence",
-            data=_seqnames,
-            dtype="u4",
-            compression="gzip",
-            chunks=True,
+        dl.write_integer_vector_to_hdf5(
+            ghandle, name="sequence", h5type="u4", x=_seqnames
         )
 
         _ranges = x.get_ranges()
-        ghandle.create_dataset(
-            "start",
-            data=_ranges.get_start(),
-            dtype="i4",
-            compression="gzip",
-            chunks=True,
+        dl.write_integer_vector_to_hdf5(
+            ghandle, name="start", h5type="i4", x=_ranges.get_start()
+        )
+        dl.write_integer_vector_to_hdf5(
+            ghandle, name="width", h5type="u4", x=_ranges.get_width()
         )
 
-        ghandle.create_dataset(
-            "width",
-            data=_ranges.get_width(),
-            dtype="u4",
-            compression="gzip",
-            chunks=True,
-        )
-
-        ghandle.create_dataset(
-            "strand",
-            data=x.get_strand(),
-            dtype="i4",
-            compression="gzip",
-            chunks=True,
+        dl.write_integer_vector_to_hdf5(
+            ghandle, name="strand", h5type="i4", x=x.get_strand()
         )
 
         if x.get_names() is not None:
-            dl._utils_vector.write_string_list_to_hdf5(ghandle, "name", x.get_names())
+            dl.write_string_vector_to_hdf5(ghandle, name="name", x=x.get_names())
 
     _range_annotation = x.get_mcols()
     if _range_annotation is not None and _range_annotation.shape[1] > 0:

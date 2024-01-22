@@ -34,18 +34,20 @@ def read_sequence_information(path: str, metadata: dict, **kwargs) -> SeqInfo:
     with h5py.File(os.path.join(path, "info.h5"), "r") as handle:
         ghandle = handle["sequence_information"]
 
-        seqnames = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["name"], "string", True
+        seqnames = dl.load_vector_from_hdf5(
+            ghandle["name"], expected_type=str, report_1darray=True
         )
 
-        seqlengths = read_seqlengths_from_hdf5(ghandle["length"])
-
-        is_circular = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["circular"], "boolean", True
+        seqlengths = dl.load_vector_from_hdf5(
+            ghandle["length"], expected_type=int, report_1darray=True
         )
 
-        genome = dl._utils_vector.load_vector_from_hdf5(
-            ghandle["genome"], "string", True
+        is_circular = dl.load_vector_from_hdf5(
+            ghandle["circular"], expected_type=bool, report_1darray=True
+        )
+
+        genome = dl.load_vector_from_hdf5(
+            ghandle["genome"], expected_type=str, report_1darray=True
         )
 
     return SeqInfo(seqnames, seqlengths, is_circular, genome)

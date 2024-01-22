@@ -2,14 +2,11 @@ import os
 
 import dolomite_base as dl
 import h5py
-from dolomite_base import save_object, validate_saves
 from genomicranges import SeqInfo
 
-from ._utils_seqinfo import write_seqlengths_to_hdf5
 
-
-@save_object.register
-@validate_saves
+@dl.save_object.register
+@dl.validate_saves
 def save_sequence_information(x: SeqInfo, path: str, **kwargs):
     """Save Sequence information to disk.
 
@@ -36,13 +33,12 @@ def save_sequence_information(x: SeqInfo, path: str, **kwargs):
     with h5py.File(os.path.join(path, "info.h5"), "w") as handle:
         ghandle = handle.create_group("sequence_information")
 
-        dl._utils_vector.write_string_list_to_hdf5(ghandle, "name", x.get_seqnames())
-
-        write_seqlengths_to_hdf5(ghandle, "length", x.get_seqlengths())
-
-        dl._utils_vector.write_boolean_list_to_hdf5(
-            ghandle, "circular", x.get_is_circular()
+        dl.write_string_vector_to_hdf5(ghandle, name="name", x=x.get_seqnames())
+        dl.write_integer_vector_to_hdf5(
+            ghandle, name="length", x=x.get_seqlengths(), h5type="u4"
         )
-        dl._utils_vector.write_string_list_to_hdf5(ghandle, "genome", x.get_genome())
+
+        dl.write_boolean_vector_to_hdf5(ghandle, name="circular", x=x.get_is_circular())
+        dl.write_string_vector_to_hdf5(ghandle, name="genome", x=x.get_genome())
 
     return
