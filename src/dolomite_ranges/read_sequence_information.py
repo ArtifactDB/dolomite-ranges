@@ -43,7 +43,6 @@ def read_sequence_information(path: str, metadata: dict, **kwargs) -> SeqInfo:
         is_circular = dl._utils_vector.load_vector_from_hdf5(
             ghandle["circular"], "boolean", True
         )
-        is_circular = is_circular.tolist()
 
         genome = dl._utils_vector.load_vector_from_hdf5(
             ghandle["genome"], "string", True
