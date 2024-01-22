@@ -5,8 +5,6 @@ import h5py
 from dolomite_base.read_object import registry
 from genomicranges import SeqInfo
 
-from ._utils_seqinfo import read_seqlengths_from_hdf5
-
 registry["sequence_information"] = "dolomite_ranges.read_sequence_information"
 
 
