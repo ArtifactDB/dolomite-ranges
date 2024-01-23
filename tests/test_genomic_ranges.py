@@ -1,54 +1,48 @@
-from genomicranges import GenomicRanges, SeqInfo 
-import dolomite_ranges
-from dolomite_base import write_metadata, stage_object
-from tempfile import mkdtemp
-from biocframe import BiocFrame
 import os
+from tempfile import mkdtemp
+
+from dolomite_base import read_object, save_object
+from genomicranges import GenomicRanges, SeqInfo
+from iranges import IRanges
+import dolomite_ranges
 
 
 def test_genomic_ranges():
     gr = GenomicRanges(
-        {
-            "seqnames": ["chrA", "chrB", "chrC"],
-            "starts": [10, 30, 2200],
-            "ends": [20,50,3000],
-            "strand": ["*", "+", "-"]
-        }
+        seqnames=["chrA", "chrB", "chrC"],
+        ranges=IRanges([10, 30, 2200], [20, 50, 30]),
+        strand=["*", "+", "-"],
     )
 
-    dir = mkdtemp()
-    meta = stage_object(gr, dir, "foo")
-    write_metadata(meta, dir)
+    dir = os.path.join(mkdtemp(), "granges")
+    save_object(gr, dir)
 
-    roundtrip = dolomite_ranges.load_genomic_ranges(meta, dir)
-    assert roundtrip.seqnames == gr.seqnames
-    assert roundtrip.start == gr.start
-    assert roundtrip.end == gr.end
-    assert roundtrip.strand == gr.strand
+    roundtrip = read_object(dir)
+    assert roundtrip.get_seqnames() == gr.get_seqnames()
+    assert (roundtrip.get_start() == gr.get_start()).all()
+    assert (roundtrip.get_end() == gr.get_end()).all()
+    assert (roundtrip.get_strand() == gr.get_strand()).all()
+    assert roundtrip.get_seqinfo().get_seqlengths() == gr.get_seqinfo().get_seqlengths()
 
 
-#def test_genomic_ranges_full_load():
-#    gr = GenomicRanges(
-#        {
-#            "seqnames": ["chrA", "chrB", "chrC"],
-#            "starts": [10, 30, 2200],
-#            "ends": [20,50,3000],
-#            "strand": ["*", "+", "-"],
-#        }
-#    )
-#
-#    gr.metadata = { "ARG": [5, 3, 2, 1 ] }
-#    gr.seq_info = SeqInfo(
-#        seqnames = [ "chrA", "chrB", "chrC" ],
-#        seqlengths = [ 1000, 2000, 3000 ],
-#        is_circular = [ False ] * 3,
-#        genome = [ "hg38" ] * 3
-#    )
-#
-#    dir = mkdtemp()
-#    meta = stage_object(gr, dir, "foo")
-#    write_metadata(meta, dir)
-#
-#    roundtrip = dolomite_ranges.load_genomic_ranges(meta, dir)
-#    assert roundtrip.seq_info.seqlengths == gr.seq_info.seqlengths
-#    assert roundtrip.metadata == gr.metadata
+def test_genomic_ranges_full_load():
+    gr = GenomicRanges(
+        seqnames=["chrA", "chrB", "chrC"],
+        ranges=IRanges([10, 30, 2200], [20, 50, 30]),
+        strand=["*", "+", "-"],
+    )
+
+    gr.metadata = {"ARG": [5, 3, 2, 1]}
+    gr.seq_info = SeqInfo(
+        seqnames=["chrA", "chrB", "chrC"],
+        seqlengths=[1000, 2000, 3000],
+        is_circular=[False] * 3,
+        genome=["hg38"] * 3,
+    )
+
+    dir = os.path.join(mkdtemp(), "granges2")
+    save_object(gr, dir)
+
+    roundtrip = read_object(dir)
+    assert roundtrip.seqinfo.seqlengths == gr.seqinfo.seqlengths
+    assert roundtrip.metadata.keys() == gr.metadata.keys()
