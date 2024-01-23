@@ -19,3 +19,5 @@ from .save_sequence_information import save_sequence_information
 from .read_sequence_information import read_sequence_information 
 from .save_genomic_ranges  import save_genomic_ranges
 from .read_genomic_ranges import read_genomic_ranges 
+from .save_genomic_ranges_list import save_genomic_ranges_list
+from .read_genomic_ranges_list import read_genomic_ranges_list
