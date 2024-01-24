@@ -11,13 +11,72 @@
 -->
 
 [![Project generated with PyScaffold](https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold)](https://pyscaffold.org/)
+[![PyPI-Server](https://img.shields.io/pypi/v/dolomite-ranges.svg)](https://pypi.org/project/dolomite-ranges/)
+![Unit tests](https://github.com/ArtifactDB/dolomite-ranges/actions/workflows/pypi-test.yml/badge.svg)
 
-# dolomite-ranges
+# Save and load genomic ranges objects to file
 
-> Add a short description here!
+This package implements methods for saving and loading `GenomicRanges` and `GenomicRangesList` objects. It provides a language-agnostic method for serializing genomic coordinates in these objects, as well as data in related objects like sequence information. To get started, install the package from PyPI:
 
-A longer description of your project goes here...
+```bash
+pip install dolomite-ranges
+```
 
+We can then save a `GenomicRanges` to a file, preserving its **metadata** and **mcols**:
+
+```python
+import os
+from tempfile import mkdtemp
+
+from dolomite_base import read_object, save_object
+from genomicranges import GenomicRanges
+from iranges import IRanges
+import dolomite_ranges
+
+gr = GenomicRanges(
+     seqnames=["chrA", "chrB", "chrC"],
+     ranges=IRanges([10, 30, 2200], [20, 50, 30]),
+     strand=["*", "+", "-"],
+)
+
+dir = os.path.join(mkdtemp(), "granges")
+save_object(gr, dir)
+
+roundtrip = read_object(dir)
+```
+
+Similarly save and load a `GenomicRangesList` to a file,
+
+```python
+import os
+from tempfile import mkdtemp
+
+from dolomite_base import read_object, save_object
+from genomicranges import GenomicRanges, SeqInfo
+from iranges import IRanges
+import dolomite_ranges
+
+a = GenomicRanges(
+     seqnames=["chr1", "chr2", "chr1", "chr3"],
+     ranges=IRanges([1, 3, 2, 4], [10, 30, 50, 60]),
+     strand=["-", "+", "*", "+"],
+     mcols=BiocFrame({"score": [1, 2, 3, 4]}),
+)
+
+b = GenomicRanges(
+     seqnames=["chr2", "chr4", "chr5"],
+     ranges=IRanges([3, 6, 4], [30, 50, 60]),
+     strand=["-", "+", "*"],
+     mcols=BiocFrame({"score": [2, 3, 4]}),
+)
+
+grl = GenomicRangesList(ranges=[a, b], names=["a", "b"])
+
+dir = os.path.join(mkdtemp(), "granges_list")
+save_object(gr, dir)
+
+roundtrip = read_object(dir)
+```
 
 <!-- pyscaffold-notes -->
 
