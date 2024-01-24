@@ -1,0 +1,61 @@
+dolomite\_ranges package
+========================
+
+Submodules
+----------
+
+dolomite\_ranges.read\_genomic\_ranges module
+---------------------------------------------
+
+.. automodule:: dolomite_ranges.read_genomic_ranges
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_ranges.read\_genomic\_ranges\_list module
+---------------------------------------------------
+
+.. automodule:: dolomite_ranges.read_genomic_ranges_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_ranges.read\_sequence\_information module
+---------------------------------------------------
+
+.. automodule:: dolomite_ranges.read_sequence_information
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_ranges.save\_genomic\_ranges module
+---------------------------------------------
+
+.. automodule:: dolomite_ranges.save_genomic_ranges
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_ranges.save\_genomic\_ranges\_list module
+---------------------------------------------------
+
+.. automodule:: dolomite_ranges.save_genomic_ranges_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dolomite\_ranges.save\_sequence\_information module
+---------------------------------------------------
+
+.. automodule:: dolomite_ranges.save_sequence_information
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: dolomite_ranges
+   :members:
+   :undoc-members:
+   :show-inheritance:
