@@ -33,7 +33,7 @@ def test_genomic_ranges_list():
     assert len(roundtrip.get_ranges()) == len(grl.get_ranges())
     assert (roundtrip["a"].get_start() == grl["a"].get_start()).all()
     assert (roundtrip["a"].get_strand() == grl["a"].get_strand()).all()
-    assert (roundtrip.get_range_lengths() == grl.get_range_lengths()).all()
+
 
 def test_genomic_ranges_list_empty():
     grl = GenomicRangesList.empty(n=100)

@@ -1,16 +1,19 @@
 import os
+from typing import Optional
 
 import dolomite_base as dl
 import h5py
-from dolomite_base.read_object import registry
+from dolomite_base.read_object import read_object_registry
 from genomicranges import GenomicRangesList
 
 from .read_genomic_ranges import read_genomic_ranges
 
-registry["genomic_ranges_list"] = "dolomite_ranges.read_genomic_ranges_list"
+read_object_registry["genomic_ranges_list"] = "dolomite_ranges.read_genomic_ranges_list"
 
 
-def read_genomic_ranges_list(path: str, metadata: dict, **kwargs) -> GenomicRangesList:
+def read_genomic_ranges_list(
+    path: str, metadata: Optional[dict], **kwargs
+) -> GenomicRangesList:
     """Load genomic ranges into a
     :py:class:`~genomicranges.GenomicRanges.GenomicRangesList` object.
 

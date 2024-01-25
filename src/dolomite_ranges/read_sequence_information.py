@@ -1,14 +1,17 @@
 import os
+from typing import Optional
 
 import dolomite_base as dl
 import h5py
-from dolomite_base.read_object import registry
+from dolomite_base.read_object import read_object_registry
 from genomicranges import SeqInfo
 
-registry["sequence_information"] = "dolomite_ranges.read_sequence_information"
+read_object_registry[
+    "sequence_information"
+] = "dolomite_ranges.read_sequence_information"
 
 
-def read_sequence_information(path: str, metadata: dict, **kwargs) -> SeqInfo:
+def read_sequence_information(path: str, metadata: Optional[dict], **kwargs) -> SeqInfo:
     """Load sequence information into a
     :py:class:`~genomicranges.SeqInfo.SeqInfo` object.
 
