@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import dolomite_base as dl
 import h5py
@@ -7,7 +8,9 @@ from genomicranges import GenomicRanges
 
 @dl.save_object.register
 @dl.validate_saves
-def save_genomic_ranges(x: GenomicRanges, path: str, **kwargs):
+def save_genomic_ranges(
+    x: GenomicRanges, path: str, data_frame_args: Optional[dict] = None, **kwargs
+):
     """Method for saving :py:class:`~genomicranges.GenomicRanges.GenomicRanges`
     objects to their corresponding file representations, see
     :py:meth:`~dolomite_base.save_object.save_object` for details.
@@ -19,6 +22,10 @@ def save_genomic_ranges(x: GenomicRanges, path: str, **kwargs):
         path:
             Path to a directory in which to save ``x``.
 
+        data_frame_args:
+            Further arguments to pass to the ``save_object`` method for
+            ``mcols``.
+
         kwargs:
             Further arguments to be passed to individual methods.
 
@@ -26,6 +33,9 @@ def save_genomic_ranges(x: GenomicRanges, path: str, **kwargs):
         `x` is saved to `path`.
     """
     os.mkdir(path)
+
+    if data_frame_args is None:
+        data_frame_args = {}
 
     with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
         handle.write(
@@ -61,7 +71,11 @@ def save_genomic_ranges(x: GenomicRanges, path: str, **kwargs):
 
     _range_annotation = x.get_mcols()
     if _range_annotation is not None and _range_annotation.shape[1] > 0:
-        dl.save_object(_range_annotation, path=os.path.join(path, "range_annotations"))
+        dl.save_object(
+            _range_annotation,
+            path=os.path.join(path, "range_annotations"),
+            **data_frame_args
+        )
 
     _meta = x.get_metadata()
     if _meta is not None and len(_meta) > 0:
