@@ -6,8 +6,6 @@ import h5py
 from dolomite_base.read_object import read_object_registry
 from genomicranges import GenomicRangesList
 
-from .read_genomic_ranges import read_genomic_ranges
-
 read_object_registry["genomic_ranges_list"] = "dolomite_ranges.read_genomic_ranges_list"
 
 
@@ -48,9 +46,7 @@ def read_genomic_ranges_list(
                 ghandle["names"], expected_type=str, report_1darray=True
             )
 
-    _all_granges = read_genomic_ranges(
-        path=os.path.join(path, "concatenated"), metadata=None
-    )
+    _all_granges = dl.alt_read_object(path=os.path.join(path, "concatenated"), **kwargs)
 
     counter = 0
     _split_granges = []
@@ -66,12 +62,12 @@ def read_genomic_ranges_list(
 
     _elem_annotation_path = os.path.join(path, "element_annotations")
     if os.path.exists(_elem_annotation_path):
-        _mcols = dl.read_object(_elem_annotation_path)
+        _mcols = dl.alt_read_object(_elem_annotation_path, **kwargs)
         grl = grl.set_mcols(_mcols)
 
     _meta_path = os.path.join(path, "other_annotations")
     if os.path.exists(_meta_path):
-        _meta = dl.read_object(_meta_path)
+        _meta = dl.alt_read_object(_meta_path, **kwargs)
         grl = grl.set_metadata(_meta.as_dict())
 
     return grl

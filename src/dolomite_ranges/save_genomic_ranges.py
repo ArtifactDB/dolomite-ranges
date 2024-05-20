@@ -71,7 +71,7 @@ def save_genomic_ranges(
 
     _range_annotation = x.get_mcols()
     if _range_annotation is not None and _range_annotation.shape[1] > 0:
-        dl.save_object(
+        dl.alt_save_object(
             _range_annotation,
             path=os.path.join(path, "range_annotations"),
             **data_frame_args
@@ -79,6 +79,8 @@ def save_genomic_ranges(
 
     _meta = x.get_metadata()
     if _meta is not None and len(_meta) > 0:
-        dl.save_object(_meta, path=os.path.join(path, "other_annotations"))
+        dl.alt_save_object(
+            _meta, path=os.path.join(path, "other_annotations"), **kwargs
+        )
 
     return
