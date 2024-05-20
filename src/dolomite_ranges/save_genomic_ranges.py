@@ -37,10 +37,8 @@ def save_genomic_ranges(
     if data_frame_args is None:
         data_frame_args = {}
 
-    with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
-        handle.write(
-            '{ "type": "genomic_ranges", "genomic_ranges": { "version": "1.0" } }'
-        )
+    _info = {"genomic_ranges": {"version": "1.0"}}
+    dl.save_object_file(path, "genomic_ranges", _info)
 
     # sequence information
     spath = os.path.join(path, "sequence_information")
@@ -74,7 +72,7 @@ def save_genomic_ranges(
         dl.alt_save_object(
             _range_annotation,
             path=os.path.join(path, "range_annotations"),
-            **data_frame_args
+            **data_frame_args,
         )
 
     _meta = x.get_metadata()

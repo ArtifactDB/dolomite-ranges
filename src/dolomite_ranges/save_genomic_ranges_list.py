@@ -38,10 +38,8 @@ def save_genomic_ranges_list(
     if data_frame_args is None:
         data_frame_args = {}
 
-    with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
-        handle.write(
-            '{ "type": "genomic_ranges_list", "genomic_ranges_list": { "version": "1.0" } }'
-        )
+    _info = {"genomic_ranges_list": {"version": "1.0"}}
+    dl.save_object_file(path, "genomic_ranges_list", _info)
 
     with h5py.File(os.path.join(path, "partitions.h5"), "w") as handle:
         ghandle = handle.create_group("genomic_ranges_list")
@@ -64,7 +62,7 @@ def save_genomic_ranges_list(
         dl.alt_save_object(
             _elem_annotation,
             path=os.path.join(path, "element_annotations"),
-            **data_frame_args
+            **data_frame_args,
         )
 
     _meta = x.get_metadata()
