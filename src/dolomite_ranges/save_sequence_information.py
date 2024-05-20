@@ -25,10 +25,8 @@ def save_sequence_information(x: SeqInfo, path: str, **kwargs):
     """
     os.mkdir(path)
 
-    with open(os.path.join(path, "OBJECT"), "w", encoding="utf-8") as handle:
-        handle.write(
-            '{ "type": "sequence_information", "sequence_information": { "version": "1.0" } }'
-        )
+    _info = {"sequence_information": {"version": "1.0"}}
+    dl.save_object_file(path, "sequence_information", _info)
 
     with h5py.File(os.path.join(path, "info.h5"), "w") as handle:
         ghandle = handle.create_group("sequence_information")
