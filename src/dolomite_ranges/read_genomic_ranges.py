@@ -7,8 +7,6 @@ from dolomite_base.read_object import read_object_registry
 from genomicranges import GenomicRanges
 from iranges import IRanges
 
-from .read_sequence_information import read_sequence_information
-
 read_object_registry["genomic_ranges"] = "dolomite_ranges.read_genomic_ranges"
 
 
@@ -34,7 +32,7 @@ def read_genomic_ranges(path: str, metadata: Optional[dict], **kwargs) -> Genomi
         A :py:class:`~genomicranges.GenomicRanges.GenomicRanges` object.
     """
     _seqinfo_path = os.path.join(path, "sequence_information")
-    seqinfo = read_sequence_information(path=_seqinfo_path, metadata=None)
+    seqinfo = dl.alt_read_object(path=_seqinfo_path, **kwargs)
 
     with h5py.File(os.path.join(path, "ranges.h5"), "r") as handle:
         ghandle = handle["genomic_ranges"]
@@ -64,12 +62,12 @@ def read_genomic_ranges(path: str, metadata: Optional[dict], **kwargs) -> Genomi
 
     _range_annotation_path = os.path.join(path, "range_annotations")
     if os.path.exists(_range_annotation_path):
-        _mcols = dl.read_object(_range_annotation_path)
+        _mcols = dl.alt_read_object(_range_annotation_path, **kwargs)
         gr = gr.set_mcols(_mcols)
 
     _meta_path = os.path.join(path, "other_annotations")
     if os.path.exists(_meta_path):
-        _meta = dl.read_object(_meta_path)
+        _meta = dl.alt_read_object(_meta_path, **kwargs)
         gr = gr.set_metadata(_meta.as_dict())
 
     return gr

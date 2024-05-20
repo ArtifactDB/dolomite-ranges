@@ -57,11 +57,11 @@ def save_genomic_ranges_list(
     if isinstance(_all_ranges, list) and len(_all_ranges) > 1:
         _all_ranges = combine_sequences(*x.get_ranges())
 
-    dl.save_object(_all_ranges, path=os.path.join(path, "concatenated"))
+    dl.alt_save_object(_all_ranges, path=os.path.join(path, "concatenated"), **kwargs)
 
     _elem_annotation = x.get_mcols()
     if _elem_annotation is not None and _elem_annotation.shape[1] > 0:
-        dl.save_object(
+        dl.alt_save_object(
             _elem_annotation,
             path=os.path.join(path, "element_annotations"),
             **data_frame_args
@@ -69,6 +69,8 @@ def save_genomic_ranges_list(
 
     _meta = x.get_metadata()
     if _meta is not None and len(_meta) > 0:
-        dl.save_object(_meta, path=os.path.join(path, "other_annotations"))
+        dl.alt_save_object(
+            _meta, path=os.path.join(path, "other_annotations"), **kwargs
+        )
 
     return
