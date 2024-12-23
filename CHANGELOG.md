@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.4.0
+## Version 0.2.0
 
 - chore: Remove Python 3.8 (EOL).
 - Add support for Python 3.13.
