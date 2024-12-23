@@ -1,7 +1,11 @@
 # Changelog
 
-## Version 0.1 (development)
+## Version 0.4.0
 
-- Feature A added
-- FIX: nasty bug #1729 fixed
-- add your changes here!
+- chore: Remove Python 3.8 (EOL).
+- Add support for Python 3.13.
+- precommit: Replace docformatter with ruff's formatter.
+
+## Version 0.1
+
+- Initial Release
