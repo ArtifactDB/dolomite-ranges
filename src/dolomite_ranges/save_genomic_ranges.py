@@ -47,9 +47,9 @@ def save_genomic_ranges(
     with h5py.File(os.path.join(path, "ranges.h5"), "w") as handle:
         ghandle = handle.create_group("genomic_ranges")
 
-        _seqnames, _ = x.get_seqnames(as_type="factor")
+        _seqnames = x.get_seqnames(as_type="factor")
         dl.write_integer_vector_to_hdf5(
-            ghandle, name="sequence", h5type="u4", x=_seqnames
+            ghandle, name="sequence", h5type="u4", x=_seqnames.get_codes()
         )
 
         _ranges = x.get_ranges()
