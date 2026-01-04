@@ -3,17 +3,16 @@ from typing import Optional
 
 import dolomite_base as dl
 import h5py
+from compressed_lists import Partitioning
 from dolomite_base.read_object import read_object_registry
-from genomicranges import GenomicRangesList
+from genomicranges import CompressedGenomicRangesList
 
 read_object_registry["genomic_ranges_list"] = "dolomite_ranges.read_genomic_ranges_list"
 
 
-def read_genomic_ranges_list(
-    path: str, metadata: Optional[dict], **kwargs
-) -> GenomicRangesList:
+def read_genomic_ranges_list(path: str, metadata: Optional[dict], **kwargs) -> CompressedGenomicRangesList:
     """Load genomic ranges into a
-    :py:class:`~genomicranges.GenomicRanges.GenomicRangesList` object.
+    :py:class:`~genomicranges.grangeslist.CompressedGenomicRangesList` object.
 
     This method
     should generally not be called directly but instead be invoked by
@@ -30,21 +29,17 @@ def read_genomic_ranges_list(
             Further arguments, ignored.
 
     Returns:
-        A :py:class:`~genomicranges.GenomicRangesList.GenomicRangesList` object.
+        A :py:class:`~genomicranges.grangeslist.CompressedGenomicRangesList` object.
     """
 
     with h5py.File(os.path.join(path, "partitions.h5"), "r") as handle:
         ghandle = handle["genomic_ranges_list"]
 
-        lengths = dl.load_vector_from_hdf5(
-            ghandle["lengths"], expected_type=int, report_1darray=True
-        )
+        lengths = dl.load_vector_from_hdf5(ghandle["lengths"], expected_type=int, report_1darray=True)
 
         names = None
         if "names" in ghandle:
-            names = dl.load_vector_from_hdf5(
-                ghandle["names"], expected_type=str, report_1darray=True
-            )
+            names = dl.load_vector_from_hdf5(ghandle["names"], expected_type=str, report_1darray=True)
 
     _all_granges = dl.alt_read_object(path=os.path.join(path, "concatenated"), **kwargs)
 
@@ -58,12 +53,14 @@ def read_genomic_ranges_list(
             _split_granges.append(_frag)
             counter += ilen
 
-    grl = GenomicRangesList(names=names, range_lengths=lengths, ranges=_split_granges)
+    grl = CompressedGenomicRangesList(
+        unlist_data=_all_granges, partitioning=Partitioning.from_lengths(lengths=lengths, names=names)
+    )
 
     _elem_annotation_path = os.path.join(path, "element_annotations")
     if os.path.exists(_elem_annotation_path):
         _mcols = dl.alt_read_object(_elem_annotation_path, **kwargs)
-        grl = grl.set_mcols(_mcols)
+        grl = grl.set_element_metadata(_mcols)
 
     _meta_path = os.path.join(path, "other_annotations")
     if os.path.exists(_meta_path):
