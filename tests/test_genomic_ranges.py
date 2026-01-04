@@ -45,4 +45,4 @@ def test_genomic_ranges_full_load():
 
     roundtrip = read_object(dir)
     assert roundtrip.seqinfo.seqlengths == gr.seqinfo.seqlengths
-    assert roundtrip.metadata.keys() == gr.metadata.keys()
+    assert list(roundtrip.metadata.keys()) == list(gr.metadata.keys())

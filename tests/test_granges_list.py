@@ -3,8 +3,9 @@ from tempfile import mkdtemp
 
 from biocframe import BiocFrame
 from dolomite_base import read_object, save_object
-from genomicranges import GenomicRanges, GenomicRangesList
+from genomicranges import GenomicRanges, CompressedGenomicRangesList
 from iranges import IRanges
+import numpy as np
 import dolomite_ranges
 
 
@@ -23,25 +24,25 @@ def test_genomic_ranges_list():
         mcols=BiocFrame({"score": [2, 3, 4]}),
     )
 
-    grl = GenomicRangesList(ranges=[a, b], names=["a", "b"])
+    grl = CompressedGenomicRangesList.from_list(lst=[a, b], names=["a", "b"])
 
     dir = os.path.join(mkdtemp(), "granges")
     save_object(grl, dir)
 
     roundtrip = read_object(dir)
     assert roundtrip.get_names() == grl.get_names()
-    assert len(roundtrip.get_ranges()) == len(grl.get_ranges())
-    assert (roundtrip["a"].get_start() == grl["a"].get_start()).all()
-    assert (roundtrip["a"].get_strand() == grl["a"].get_strand()).all()
+    assert len(roundtrip.get_unlist_data()) == len(grl.get_unlist_data())
+    assert np.allclose(roundtrip["a"].start, grl["a"].start)
+    assert np.allclose(roundtrip["a"].strand, grl["a"].strand)
 
 
 def test_genomic_ranges_list_empty():
-    grl = GenomicRangesList.empty(n=100)
+    grl = CompressedGenomicRangesList.empty(n=100)
 
     dir = os.path.join(mkdtemp(), "granges_empty")
     save_object(grl, dir)
 
     roundtrip = read_object(dir)
     assert roundtrip.get_names() == grl.get_names()
-    assert len(roundtrip.get_ranges()) == len(grl.get_ranges())
-    assert (roundtrip.get_range_lengths() == grl.get_range_lengths()).all()
+    assert len(roundtrip.get_unlist_data()) == len(grl.get_unlist_data())
+    assert np.allclose(roundtrip.get_element_lengths(), grl.get_element_lengths())
