@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="prev" title="dolomite_ranges" href="modules.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>dolomite_ranges package - dolomite-ranges 0.3.0 documentation</title>
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>dolomite_ranges package - dolomite-ranges 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">dolomite-ranges 0.3.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">dolomite-ranges 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">dolomite-ranges 0.3.0 documentation</span>
+  <span class="sidebar-brand-text">dolomite-ranges 0.4.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -242,6 +242,51 @@
 <h1>dolomite_ranges package<a class="headerlink" href="#dolomite-ranges-package" title="Link to this heading">¶</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-dolomite_ranges.read_atomic_vector_list">
+<span id="dolomite-ranges-read-atomic-vector-list-module"></span><h2>dolomite_ranges.read_atomic_vector_list module<a class="headerlink" href="#module-dolomite_ranges.read_atomic_vector_list" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_ranges.read_atomic_vector_list.read_atomic_vector_list">
+<span class="sig-prename descclassname"><span class="pre">dolomite_ranges.read_atomic_vector_list.</span></span><span class="sig-name descname"><span class="pre">read_atomic_vector_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_ranges/read_atomic_vector_list.html#read_atomic_vector_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_ranges.read_atomic_vector_list.read_atomic_vector_list" title="Link to this definition">¶</a></dt>
+<dd><p>Load a list of atomic vectors from its on-disk representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory containing the object.</p></li>
+<li><p><strong>metadata</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span>) – Metadata for the object.</p></li>
+<li><p><strong>kwargs</strong> – Further arguments, ignored.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dolomite_ranges.read_frame_list">
+<span id="dolomite-ranges-read-frame-list-module"></span><h2>dolomite_ranges.read_frame_list module<a class="headerlink" href="#module-dolomite_ranges.read_frame_list" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_ranges.read_frame_list.read_data_frame_list">
+<span class="sig-prename descclassname"><span class="pre">dolomite_ranges.read_frame_list.</span></span><span class="sig-name descname"><span class="pre">read_data_frame_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_ranges/read_frame_list.html#read_data_frame_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_ranges.read_frame_list.read_data_frame_list" title="Link to this definition">¶</a></dt>
+<dd><p>Load data frame list.</p>
+<p>This method
+should generally not be called directly but instead be invoked by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">read_object()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory containing the object.</p></li>
+<li><p><strong>metadata</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</span>) – Metadata for the object.</p></li>
+<li><p><strong>kwargs</strong> – Further arguments, ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompressedSplitBiocFrameList</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">CompressedSplitBiocFrameList</span></code> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-dolomite_ranges.read_genomic_ranges">
 <span id="dolomite-ranges-read-genomic-ranges-module"></span><h2>dolomite_ranges.read_genomic_ranges module<a class="headerlink" href="#module-dolomite_ranges.read_genomic_ranges" title="Link to this heading">¶</a></h2>
@@ -321,6 +366,56 @@ invoked by <code class="xref py py-meth docutils literal notranslate"><span clas
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">SeqInfo</span></code> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dolomite_ranges.save_atomic_vector_list">
+<span id="dolomite-ranges-save-atomic-vector-list-module"></span><h2>dolomite_ranges.save_atomic_vector_list module<a class="headerlink" href="#module-dolomite_ranges.save_atomic_vector_list" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_ranges.save_atomic_vector_list.save_atomic_vector_list">
+<span class="sig-prename descclassname"><span class="pre">dolomite_ranges.save_atomic_vector_list.</span></span><span class="sig-name descname"><span class="pre">save_atomic_vector_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_ranges/save_atomic_vector_list.html#save_atomic_vector_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_ranges.save_atomic_vector_list.save_atomic_vector_list" title="Link to this definition">¶</a></dt>
+<dd><p>Method for saving <code class="xref py py-class docutils literal notranslate"><span class="pre">CompressedList</span></code>
+objects to their corresponding file representations, see
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">save_object()</span></code> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompressedList</span></code></span>) – Object to be staged.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to a directory in which to save <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>data_frame_args</strong> – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for
+<code class="docutils literal notranslate"><span class="pre">mcols</span></code>.</p></li>
+<li><p><strong>kwargs</strong> – Further arguments to be passed to individual methods.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>x</cite> is saved to <cite>path</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dolomite_ranges.save_frame_list">
+<span id="dolomite-ranges-save-frame-list-module"></span><h2>dolomite_ranges.save_frame_list module<a class="headerlink" href="#module-dolomite_ranges.save_frame_list" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolomite_ranges.save_frame_list.save_compressed_genomic_ranges_list">
+<span class="sig-prename descclassname"><span class="pre">dolomite_ranges.save_frame_list.</span></span><span class="sig-name descname"><span class="pre">save_compressed_genomic_ranges_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dolomite_ranges/save_frame_list.html#save_compressed_genomic_ranges_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dolomite_ranges.save_frame_list.save_compressed_genomic_ranges_list" title="Link to this definition">¶</a></dt>
+<dd><p>Method for saving <code class="xref py py-class docutils literal notranslate"><span class="pre">CompressedSplitBiocFrameList</span></code>
+objects to their corresponding file representations, see
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">save_object()</span></code> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompressedSplitBiocFrameList</span></code></span>) – Object to be staged.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to a directory in which to save <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>data_frame_args</strong> – Further arguments to pass to the <code class="docutils literal notranslate"><span class="pre">save_object</span></code> method for
+<code class="docutils literal notranslate"><span class="pre">mcols</span></code>.</p></li>
+<li><p><strong>kwargs</strong> – Further arguments to be passed to individual methods.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>x</cite> is saved to <cite>path</cite>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -451,6 +546,14 @@ objects to their corresponding file representations, see
             <ul>
 <li><a class="reference internal" href="#">dolomite_ranges package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-dolomite_ranges.read_atomic_vector_list">dolomite_ranges.read_atomic_vector_list module</a><ul>
+<li><a class="reference internal" href="#dolomite_ranges.read_atomic_vector_list.read_atomic_vector_list"><code class="docutils literal notranslate"><span class="pre">read_atomic_vector_list()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-dolomite_ranges.read_frame_list">dolomite_ranges.read_frame_list module</a><ul>
+<li><a class="reference internal" href="#dolomite_ranges.read_frame_list.read_data_frame_list"><code class="docutils literal notranslate"><span class="pre">read_data_frame_list()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-dolomite_ranges.read_genomic_ranges">dolomite_ranges.read_genomic_ranges module</a><ul>
 <li><a class="reference internal" href="#dolomite_ranges.read_genomic_ranges.read_genomic_ranges"><code class="docutils literal notranslate"><span class="pre">read_genomic_ranges()</span></code></a></li>
 </ul>
@@ -461,6 +564,14 @@ objects to their corresponding file representations, see
 </li>
 <li><a class="reference internal" href="#module-dolomite_ranges.read_sequence_information">dolomite_ranges.read_sequence_information module</a><ul>
 <li><a class="reference internal" href="#dolomite_ranges.read_sequence_information.read_sequence_information"><code class="docutils literal notranslate"><span class="pre">read_sequence_information()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-dolomite_ranges.save_atomic_vector_list">dolomite_ranges.save_atomic_vector_list module</a><ul>
+<li><a class="reference internal" href="#dolomite_ranges.save_atomic_vector_list.save_atomic_vector_list"><code class="docutils literal notranslate"><span class="pre">save_atomic_vector_list()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-dolomite_ranges.save_frame_list">dolomite_ranges.save_frame_list module</a><ul>
+<li><a class="reference internal" href="#dolomite_ranges.save_frame_list.save_compressed_genomic_ranges_list"><code class="docutils literal notranslate"><span class="pre">save_compressed_genomic_ranges_list()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-dolomite_ranges.save_genomic_ranges">dolomite_ranges.save_genomic_ranges module</a><ul>
@@ -487,9 +598,9 @@ objects to their corresponding file representations, see
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=e259d695"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

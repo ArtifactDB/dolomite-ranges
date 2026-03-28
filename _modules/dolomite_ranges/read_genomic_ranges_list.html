@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>dolomite_ranges.read_genomic_ranges_list - dolomite-ranges 0.3.0 documentation</title>
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>dolomite_ranges.read_genomic_ranges_list - dolomite-ranges 0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -160,7 +160,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">dolomite-ranges 0.3.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">dolomite-ranges 0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -181,7 +181,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">dolomite-ranges 0.3.0 documentation</span>
+  <span class="sidebar-brand-text">dolomite-ranges 0.4.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -232,14 +232,12 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for dolomite_ranges.read_genomic_ranges_list</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">dolomite_base</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dl</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">compressed_lists</span><span class="w"> </span><span class="kn">import</span> <span class="n">Partitioning</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dolomite_base.read_object</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_object_registry</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">genomicranges</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompressedGenomicRangesList</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.read_atomic_vector_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">_read_compressed_list</span>
 
 <span class="n">read_object_registry</span><span class="p">[</span><span class="s2">&quot;genomic_ranges_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;dolomite_ranges.read_genomic_ranges_list&quot;</span>
 
@@ -268,42 +266,7 @@
 <span class="sd">        A :py:class:`~genomicranges.grangeslist.CompressedGenomicRangesList` object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;partitions.h5&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
-        <span class="n">ghandle</span> <span class="o">=</span> <span class="n">handle</span><span class="p">[</span><span class="s2">&quot;genomic_ranges_list&quot;</span><span class="p">]</span>
-
-        <span class="n">lengths</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">load_vector_from_hdf5</span><span class="p">(</span><span class="n">ghandle</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">],</span> <span class="n">expected_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">report_1darray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="s2">&quot;names&quot;</span> <span class="ow">in</span> <span class="n">ghandle</span><span class="p">:</span>
-            <span class="n">names</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">load_vector_from_hdf5</span><span class="p">(</span><span class="n">ghandle</span><span class="p">[</span><span class="s2">&quot;names&quot;</span><span class="p">],</span> <span class="n">expected_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">report_1darray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">_all_granges</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">alt_read_object</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;concatenated&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">_split_granges</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">lengths</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">_split_granges</span> <span class="o">=</span> <span class="n">_all_granges</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">ilen</span> <span class="ow">in</span> <span class="n">lengths</span><span class="p">:</span>
-            <span class="n">_frag</span> <span class="o">=</span> <span class="n">_all_granges</span><span class="p">[</span><span class="n">counter</span> <span class="p">:</span> <span class="p">(</span><span class="n">counter</span> <span class="o">+</span> <span class="n">ilen</span><span class="p">)]</span>
-            <span class="n">_split_granges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_frag</span><span class="p">)</span>
-            <span class="n">counter</span> <span class="o">+=</span> <span class="n">ilen</span>
-
-    <span class="n">grl</span> <span class="o">=</span> <span class="n">CompressedGenomicRangesList</span><span class="p">(</span>
-        <span class="n">unlist_data</span><span class="o">=</span><span class="n">_all_granges</span><span class="p">,</span> <span class="n">partitioning</span><span class="o">=</span><span class="n">Partitioning</span><span class="o">.</span><span class="n">from_lengths</span><span class="p">(</span><span class="n">lengths</span><span class="o">=</span><span class="n">lengths</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
-    <span class="p">)</span>
-
-    <span class="n">_elem_annotation_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;element_annotations&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">_elem_annotation_path</span><span class="p">):</span>
-        <span class="n">_mcols</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">alt_read_object</span><span class="p">(</span><span class="n">_elem_annotation_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">grl</span> <span class="o">=</span> <span class="n">grl</span><span class="o">.</span><span class="n">set_element_metadata</span><span class="p">(</span><span class="n">_mcols</span><span class="p">)</span>
-
-    <span class="n">_meta_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;other_annotations&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">_meta_path</span><span class="p">):</span>
-        <span class="n">_meta</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">alt_read_object</span><span class="p">(</span><span class="n">_meta_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">grl</span> <span class="o">=</span> <span class="n">grl</span><span class="o">.</span><span class="n">set_metadata</span><span class="p">(</span><span class="n">_meta</span><span class="o">.</span><span class="n">as_dict</span><span class="p">())</span>
-
-    <span class="k">return</span> <span class="n">grl</span></div>
+    <span class="k">return</span> <span class="n">_read_compressed_list</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;genomic_ranges_list&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 </pre></div>
         </article>
@@ -337,9 +300,9 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=e259d695"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

@@ -4,6 +4,22 @@ dolomite\_ranges package
 Submodules
 ----------
 
+dolomite\_ranges.read\_atomic\_vector\_list module
+--------------------------------------------------
+
+.. automodule:: dolomite_ranges.read_atomic_vector_list
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dolomite\_ranges.read\_frame\_list module
+-----------------------------------------
+
+.. automodule:: dolomite_ranges.read_frame_list
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 dolomite\_ranges.read\_genomic\_ranges module
 ---------------------------------------------
 
@@ -24,6 +40,22 @@ dolomite\_ranges.read\_sequence\_information module
 ---------------------------------------------------
 
 .. automodule:: dolomite_ranges.read_sequence_information
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dolomite\_ranges.save\_atomic\_vector\_list module
+--------------------------------------------------
+
+.. automodule:: dolomite_ranges.save_atomic_vector_list
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dolomite\_ranges.save\_frame\_list module
+-----------------------------------------
+
+.. automodule:: dolomite_ranges.save_frame_list
    :members:
    :show-inheritance:
    :undoc-members:
