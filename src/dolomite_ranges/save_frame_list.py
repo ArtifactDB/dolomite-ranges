@@ -1,17 +1,13 @@
-from typing import Optional
-
 import dolomite_base as dl
-from genomicranges import CompressedGenomicRangesList
+from compressed_lists import CompressedSplitBiocFrameList
 
 from .save_atomic_vector_list import _save_compressed_list
 
 
 @dl.save_object.register
 @dl.validate_saves
-def save_compressed_genomic_ranges_list(
-    x: CompressedGenomicRangesList, path: str, data_frame_args: Optional[dict] = None, **kwargs
-):
-    """Method for saving :py:class:`~genomicranges.grangeslist.CompressedGenomicRangesList`
+def save_compressed_genomic_ranges_list(x: CompressedSplitBiocFrameList, path: str, **kwargs):
+    """Method for saving :py:class:`~compressed_lists.biocframe_list.CompressedSplitBiocFrameList`
     objects to their corresponding file representations, see
     :py:meth:`~dolomite_base.save_object.save_object` for details.
 
