@@ -30,6 +30,7 @@ def test_genomic_ranges_list():
     save_object(grl, dir)
 
     roundtrip = read_object(dir)
+    assert isinstance(roundtrip, CompressedGenomicRangesList)
     assert roundtrip.get_names() == grl.get_names()
     assert len(roundtrip.get_unlist_data()) == len(grl.get_unlist_data())
     assert np.allclose(roundtrip["a"].start, grl["a"].start)

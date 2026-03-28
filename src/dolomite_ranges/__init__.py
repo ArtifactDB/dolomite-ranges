@@ -21,3 +21,4 @@ from .save_genomic_ranges  import save_genomic_ranges
 from .read_genomic_ranges import read_genomic_ranges 
 from .save_genomic_ranges_list import save_compressed_genomic_ranges_list
 from .read_genomic_ranges_list import read_genomic_ranges_list
+from .read_atomic_vector_list import read_atomic_vector_list
