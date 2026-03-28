@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.4.0
+
+- Support for compressed lists.
+
 ## Version 0.3.0
 
 - Update to support the compressed genomicranges list implementation.
