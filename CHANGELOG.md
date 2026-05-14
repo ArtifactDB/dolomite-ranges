@@ -1,8 +1,9 @@
 # Changelog
 
-## Version 0.4.0
+## Version 0.4.0 - 0.4.1
 
 - Support for compressed lists.
+- Fix the copy paste issue for Compressed data frame lists.
 
 ## Version 0.3.0
 

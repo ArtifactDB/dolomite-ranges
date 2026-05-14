@@ -21,9 +21,7 @@ def read_atomic_vector_list(path: str, metadata: Optional[dict], **kwargs):
 
         kwargs:
             Further arguments, ignored.
-
-
-    """
+   """
     return _read_compressed_list(path, metadata, "atomic_vector_list", **kwargs)
 
 

@@ -6,7 +6,7 @@ from .save_atomic_vector_list import _save_compressed_list
 
 @dl.save_object.register
 @dl.validate_saves
-def save_compressed_genomic_ranges_list(x: CompressedSplitBiocFrameList, path: str, **kwargs):
+def save_data_frame_list(x: CompressedSplitBiocFrameList, path: str, **kwargs):
     """Method for saving :py:class:`~compressed_lists.biocframe_list.CompressedSplitBiocFrameList`
     objects to their corresponding file representations, see
     :py:meth:`~dolomite_base.save_object.save_object` for details.
@@ -28,4 +28,4 @@ def save_compressed_genomic_ranges_list(x: CompressedSplitBiocFrameList, path: s
     Returns:
         `x` is saved to `path`.
     """
-    return _save_compressed_list(x, path=path, name="genomic_ranges_list", **kwargs)
+    return _save_compressed_list(x, path=path, name="data_frame_list", **kwargs)
